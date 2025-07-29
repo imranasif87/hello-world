@@ -1,4 +1,4 @@
-const router = new Navigo("/", { hash: false });
+const router = new Navigo("/hello-world", { hash: false });
 const app = document.getElementById("app");
 
 // Set up routes
