@@ -1,22 +1,39 @@
 const router = new Navigo("/hello-world", { hash: false });
 const app = document.getElementById("app");
 
+// Utility to load HTML into the app container
+function loadPage(url) {
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error("Page not found");
+      return res.text();
+    })
+    .then(html => {
+      app.innerHTML = html;
+    })
+    .catch(err => {
+      app.innerHTML = "<h2>404 - Page not found</h2>";
+    });
+}
+
 // Set up routes
-router.on({
-  "/": () => {
-    app.innerHTML = "<h2>Home Page</h2><p>Welcome to our vanilla JS site!</p>";
-  },
-  "/about": () => {
-    app.innerHTML = "<h2>About Page</h2><p>This is a simple single-page app.</p>";
-  },
-  "/products/:category/:id": ({ data }) => {
-    app.innerHTML = `
-      <h2>Product Page</h2>
-      <p>Category: ${data.category}</p>
-      <p>ID: ${data.id}</p>
-    `;
-  }
-});
+// Setup routes
+router
+  .on("/", () => loadPage("pages/home.html"))
+  .on("/about", () => loadPage("pages/about.html"))
+  .on("/products/:category/:id", ({ data }) => {
+    // You can still inject dynamic content
+    fetch("pages/product.html")
+      .then(res => res.text())
+      .then(html => {
+        html = html.replace("{{category}}", data.category);
+        html = html.replace("{{id}}", data.id);
+        app.innerHTML = html;
+      });
+  })
+  .notFound(() => {
+    app.innerHTML = "<h2>404 Not Found</h2>";
+  });
 
 // Handle redirect (GitHub Pages fallback)
 const params = new URLSearchParams(window.location.search);
