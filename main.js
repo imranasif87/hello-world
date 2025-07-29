@@ -1,4 +1,4 @@
-const router = new Navigo("/hello-world", { hash: false });
+const router = new Navigo("/hello-world", { hash: false }); // repo name as base path
 const app = document.getElementById("app");
 
 // Utility to load HTML into the app container
@@ -16,14 +16,12 @@ function loadPage(url) {
     });
 }
 
-// Set up routes
 // Setup routes
 router
-  .on("/", () => loadPage("pages/home.html"))
-  .on("/about", () => loadPage("pages/about.html"))
+  .on("/", () => loadPage("/hello-world/pages/home.html"))
+  .on("/about", () => loadPage("/hello-world/pages/about.html"))
   .on("/products/:category/:id", ({ data }) => {
-    // You can still inject dynamic content
-    fetch("pages/product.html")
+    fetch("/hello-world/pages/product.html")
       .then(res => res.text())
       .then(html => {
         html = html.replace("{{category}}", data.category);
@@ -40,9 +38,7 @@ const params = new URLSearchParams(window.location.search);
 const redirect = params.get("redirect");
 
 if (redirect) {
-  // Clean up the URL (remove the ?redirect=...) and replace it with the real route
   history.replaceState(null, '', redirect);
-  // Wait a moment for URL to update, then resolve the route
   setTimeout(() => router.resolve(), 10);
 } else {
   router.resolve();
