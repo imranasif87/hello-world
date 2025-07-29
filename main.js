@@ -23,7 +23,6 @@ const params = new URLSearchParams(window.location.search);
 const redirect = params.get("redirect");
 
 if (redirect) {
-  debugger;
   // Clean up the URL (remove the ?redirect=...) and replace it with the real route
   history.replaceState(null, '', redirect);
   // Wait a moment for URL to update, then resolve the route
