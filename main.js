@@ -39,7 +39,7 @@ const redirect = params.get("redirect");
 
 if (redirect) {
   history.replaceState(null, '', redirect);
-  setTimeout(() => router.resolve(), 10);
+  setTimeout(() => router.resolve(), 0);
 } else {
   router.resolve();
 }
