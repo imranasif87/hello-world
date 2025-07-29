@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
-  <script>
-    const fullPath = window.location.pathname + window.location.search + window.location.hash;
-
-    debugger; // For debugging purposes, you can remove this line later
-    // Extract base path
-    //const base = "/hello-world"; // replace with your repo name
-    //const redirectPath = fullPath.replace(base, "");
-
-    const newUrl = "index.html?redirect=" + encodeURIComponent(fullPath);
-    window.location.replace(newUrl);
-  </script>
+  <title>Vanilla JS Routing</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <p>Redirecting...</p>
-</body>
+  <nav>
+    <a href="/" data-navigo>Home</a>
+    <a href="/about" data-navigo>About</a>
+    <a href="/products/phones/123" data-navigo>Product 123</a>
+  </nav>
 
+  <main id="app"></main>
+
+  <!-- Navigo from CDN -->
+  <script src="https://unpkg.com/navigo"></script>
+  <script src="main.js"></script>
+</body>
 </html>
