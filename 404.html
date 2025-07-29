@@ -7,6 +7,8 @@
     // Correctly extract the current path and send to index.html
     const fullPath = window.location.pathname + window.location.search + window.location.hash;
     const params = new URLSearchParams(window.location.search);
+    debugger;
+    alert('params: ' + params);
     const redirect = params.get("redirect");
     alert('Full path: ' + fullPath);
     alert('redirect path: ' + redirect);
